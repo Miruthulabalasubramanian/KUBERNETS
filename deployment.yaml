@@ -1,0 +1,37 @@
+# Define the API version and resource type for Deployment
+apiVersion: apps/v1
+kind: Deployment
+
+# Metadata about the Deployment
+metadata:
+  name: configmap-app-deployment
+  labels:
+    app: configmap-app
+
+# Specification of the desired behavior of the Deployment
+spec:
+  # Create exactly 1 replica (pod)
+  replicas: 1
+  # Selector to find the pods managed by this deployment
+  selector:
+    matchLabels:
+      app: configmap-app
+  # Template used to create the pods
+  template:
+    metadata:
+      labels:
+        app: configmap-app
+    spec:
+      containers:
+      - name: nodejs-app
+        # Use our built image
+        image: configmap-app:latest
+        # Never pull from remote registry because we built it locally in Minikube
+        imagePullPolicy: Never
+        # The port the container is listening on
+        ports:
+        - containerPort: 3000
+        # Inject all environment variables from our ConfigMap
+        envFrom:
+        - configMapRef:
+            name: app-config

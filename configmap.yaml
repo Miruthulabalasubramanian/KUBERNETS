@@ -1,0 +1,13 @@
+# Define the API version and resource type
+apiVersion: v1
+kind: ConfigMap
+
+# Metadata about the ConfigMap
+metadata:
+  name: app-config
+
+# The actual configuration data as key-value pairs
+data:
+  APP_COLOR: red
+  APP_MODE: production
+  APP_MESSAGE: Hello from Kubernetes ConfigMap!

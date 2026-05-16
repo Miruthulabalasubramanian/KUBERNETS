@@ -1,0 +1,20 @@
+# Define the API version and resource type for Service
+apiVersion: v1
+kind: Service
+
+# Metadata about the Service
+metadata:
+  name: configmap-app-service
+
+# Specification of the Service
+spec:
+  # Type NodePort exposes the service on a port on each node's IP
+  type: NodePort
+  # Selector to map the service to our deployment's pods
+  selector:
+    app: configmap-app
+  # Port configuration
+  ports:
+    - protocol: TCP
+      port: 80         # Port exposed by the Service
+      targetPort: 3000 # Port the container is listening on
